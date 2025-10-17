@@ -1,20 +1,99 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import {StatusBar} from 'expo-status-bar';
+import {
+    Pressable,
+    StyleSheet,
+    Switch,
+    Text,
+    TouchableOpacity, TouchableWithoutFeedback,
+    View
+} from 'react-native';
+import {useState} from "react";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    const [accion, setAccion] = useState('Nada');
+    const [isDisabled, setIsDisabled] = useState(false);
+    return (
+        <View style={styles.container}>
+            <Text>
+                Activado
+            </Text>
+            <Switch
+                onValueChange={() => setIsDisabled(!isDisabled)}
+                value={!isDisabled}
+            />
+            <Text>
+                {accion}
+            </Text>
+            <Pressable
+                onPressIn={() => setAccion('Pressable In')}
+                onPressOut={() => setAccion('Pressable Out')}
+                onLongPress={() => setAccion('Pressable Long')}
+                disabled={isDisabled}
+            >
+                {({pressed}) => (
+                    <View style={[styles.card, !pressed && styles.shadow]}>
+                        <View style={styles.mockImage}/>
+                        <Text>
+                            {pressed ? 'Tarjeta presionada.': 'Tarjeta no presionada.'}
+                        </Text>
+                    </View>
+                )}
+            </Pressable>
+            <TouchableOpacity
+                disabled={isDisabled}
+                activeOpacity={0.5}
+                onPress={() => setAccion('Opacity')}
+            >
+                <View style={[styles.card, styles.shadow]}>
+                    <View style={styles.mockImage}/>
+                    <Text>
+                        Esta es una tarjeta.
+                    </Text>
+                </View>
+            </TouchableOpacity>
+            <TouchableWithoutFeedback
+                onPress={() => setAccion('WithoutFeedback')}
+                disabled={isDisabled}
+            >
+                <View style={[styles.card, styles.shadow]}>
+                    <View style={styles.mockImage}/>
+                    <Text>
+                        Esta es una tarjeta.
+                    </Text>
+                </View>
+            </TouchableWithoutFeedback>
+            <StatusBar style="auto"/>
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    card: {
+        width: 200,
+        height: 250,
+        padding: 20,
+        display: "flex",
+        flexDirection: 'column',
+        borderRadius: 8,
+        margin: 15
+    },
+    mockImage: {
+        flex: 1,
+        backgroundColor: 'gray',
+        marginBottom: 8,
+        borderRadius: 8
+    },
+    shadow: {
+        shadowColor: '#000',
+        shadowOffset: {width: 0, height: 10},
+        shadowOpacity: 0.2,
+        shadowRadius: 12,
+        elevation: 10,
+    },
 });
