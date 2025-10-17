@@ -10,57 +10,25 @@ import {
 import {useState} from "react";
 
 export default function App() {
-    const [accion, setAccion] = useState('Nada');
-    const [isDisabled, setIsDisabled] = useState(false);
     return (
         <View style={styles.container}>
             <Text>
                 Activado
             </Text>
             <Switch
-                onValueChange={() => setIsDisabled(!isDisabled)}
-                value={!isDisabled}
+
             />
             <Text>
-                {accion}
+                {/* Accion */}
             </Text>
-            <Pressable
-                onPressIn={() => setAccion('Pressable In')}
-                onPressOut={() => setAccion('Pressable Out')}
-                onLongPress={() => setAccion('Pressable Long')}
-                disabled={isDisabled}
-            >
-                {({pressed}) => (
-                    <View style={[styles.card, !pressed && styles.shadow]}>
-                        <View style={styles.mockImage}/>
-                        <Text>
-                            {pressed ? 'Tarjeta presionada.': 'Tarjeta no presionada.'}
-                        </Text>
-                    </View>
-                )}
+            <Pressable>
+
             </Pressable>
-            <TouchableOpacity
-                disabled={isDisabled}
-                activeOpacity={0.5}
-                onPress={() => setAccion('Opacity')}
-            >
-                <View style={[styles.card, styles.shadow]}>
-                    <View style={styles.mockImage}/>
-                    <Text>
-                        Esta es una tarjeta.
-                    </Text>
-                </View>
+            <TouchableOpacity>
+
             </TouchableOpacity>
-            <TouchableWithoutFeedback
-                onPress={() => setAccion('WithoutFeedback')}
-                disabled={isDisabled}
-            >
-                <View style={[styles.card, styles.shadow]}>
-                    <View style={styles.mockImage}/>
-                    <Text>
-                        Esta es una tarjeta.
-                    </Text>
-                </View>
+            <TouchableWithoutFeedback>
+
             </TouchableWithoutFeedback>
             <StatusBar style="auto"/>
         </View>
